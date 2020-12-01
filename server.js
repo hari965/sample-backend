@@ -50,3 +50,16 @@ app.use(function(err, req, res, next) {
         body: {}
     });
 })
+
+// To kill the process running in background
+
+const processExitHandler = async(error) => {
+    if (error) console.log(error);
+    process.exit(error ? 1 : 0);
+};
+
+process.on('exit', processExitHandler);
+process.on('SIGINT', processExitHandler); // Catches ctrl+c
+process.on('SIGUSR1', processExitHandler); // SIGUSR1 and SIGUSR2 are for `kill pid` (ex: nodemon restart)
+process.on('SIGUSR2', processExitHandler);
+process.on('uncaughtException', processExitHandler);

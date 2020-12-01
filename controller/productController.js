@@ -2,6 +2,7 @@ const productService = require('../service/productService');
 const constants = require('../constants');
 
 module.exports.createProduct = async(req, res) => {
+    // console.log(req.body);
     let response = {...constants.defaultServerResponse };
     try {
         const responseFromService = await productService.createProduct(req.body);
