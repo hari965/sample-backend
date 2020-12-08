@@ -2,6 +2,7 @@ const User = require('../database/models/userModel');
 const constants = require('../constants')
 const bcrypt = require('bcrypt');
 const { formatMongoData } = require('../helper/dbHelper');
+const jwt = require('jsonwebtoken');
 
 module.exports.signup = async({ email, password }) => {
     try {
@@ -18,6 +19,28 @@ module.exports.signup = async({ email, password }) => {
 
     } catch (error) {
         console.log('Something went wrong:service:signup', error);
+        throw new Error(error);
+    }
+}
+
+module.exports.login = async({ email, password }) => {
+    try {
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            throw new Error(constants.userMessage.USER_NOT_FOUND)
+        }
+
+        const isValid = await bcrypt.compare(password, user.password);
+        if (!isValid) {
+            throw new Error(constants.userMessage.INVALID_PASSWORD)
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY || 'my-secret-key', { expiresIn: '1d' });
+
+        return { token }
+
+    } catch (error) {
+        console.log('Something went wrong:service:login', error);
         throw new Error(error);
     }
 }

@@ -13,7 +13,10 @@ module.exports = {
     },
     userMessage: {
         SIGNUP_SUCCESS: 'Signup Success',
-        DUPLICATE_USER: 'User Already Exists With the Given Email'
+        LOGIN_SUCCESS: 'Login Successful',
+        DUPLICATE_USER: 'User Already Exists With the Given Email',
+        USER_NOT_FOUND: 'User not found',
+        INVALID_PASSWORD: 'Incorrect Password'
     },
     requestValidaionMessage: {
         BAD_REQUEST: 'INVALID FIELDS '
