@@ -33,3 +33,20 @@
 //         }
 //     }
 // }
+
+
+// module.exports.validateQueryParams = (schema) => {
+//     return (req, res, next) => {
+//         console.log(req.body);
+//         let response = {...constants.defaultServerResponse }
+//         const error = validateObjectSchema(req.query, schema);
+//         if (error) {
+//             response.body = error;
+//             response.message = constants.requestValidaionMessage.BAD_REQUEST;
+//             return res.status(response.status).send(response);
+
+//         } else {
+//             return next();
+//         }
+//     }
+// }
