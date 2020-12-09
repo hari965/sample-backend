@@ -1,6 +1,9 @@
 const express = require('express');
 const dotEnv = require('dotenv');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 const dbConnection = require('./database/connection');
 
 dotEnv.config();
@@ -29,6 +32,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/product', require('./routes/productRoutes'));
 app.use('/api/v1/user', require('./routes/userRoutes'));
+
+
+//API Documentaion
+
+if (process.env.NODE_ENV != 'production') {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+}
 
 app.get('/', (req, res, next) => {
     res.send('First Node API Server');
