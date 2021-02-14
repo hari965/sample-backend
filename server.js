@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/product', require('./routes/productRoutes'));
 app.use('/api/v1/user', require('./routes/userRoutes'));
+app.use('/api/v1/student', require('./routes/student'));
 
 
 //API Documentaion
